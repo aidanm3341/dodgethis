@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter</title>
+    <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="title">Dodge Stuff! 👾</h1>
+    </header>
+
+    <div class="game">
+        <iframe src="pixelbox/index.html" frameborder="0" width="512" height="512"></iframe>
+    </div>
+    
+    <!-- <div class="game">
+        <script src="pixelbox/build/index.js"></script>
+    </div> -->
+
+    <main>
+
+        <form class="my-form">
+            <label for="name">Name</label>
+            <input class="u-full-width" type="text" id="name" name="name">
+            <label for="content">Tweet</label>
+            <textarea class="u-full-width" type="text" id="content" name="content"></textarea>
+            <button class="button-primary">Tweet</button>
+        </form>
+        <div class="loading">
+            <img src="loading.gif" alt="">
+        </div>
+        <div class="tweets">
+            
+        </div>
+    </main>
+    <script src="client.js"></script>
+    
+</body>
+</html>

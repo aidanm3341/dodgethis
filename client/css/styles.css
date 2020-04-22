@@ -1,0 +1,61 @@
+html{
+    background-color: #000;
+    color: wheat;
+}
+
+.title{
+    text-align: center;
+}
+
+.my-form{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.loading{
+    text-align: center;
+}
+
+.tweets{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.tweets > div {
+    background: hsl(0, 0%, 95%);
+    padding: 12px;
+    border-radius: 4px;
+}
+  
+.tweets > div > h3 {
+    word-wrap: break-word;
+}
+
+.tweets > div > p {
+    word-wrap: break-word; 
+}
+
+.tweets > div:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+.game {
+    text-align: center;
+}
+
+.game > body {
+    text-align: center;
+	font-family: verdana;
+	background-color: #000;
+	margin: 0;
+	overflow: hidden;
+}
+
+canvas {
+	image-rendering: optimizeSpeed;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: optimize-contrast;
+	image-rendering: pixelated;
+	-ms-interpolation-mode: nearest-neighbor;
+}
