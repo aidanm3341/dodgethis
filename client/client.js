@@ -1,11 +1,23 @@
 const form = document.querySelector('form');
 const loadingElement = document.querySelector('.loading'); 
 const tweetsElement = document.querySelector('.tweets');
+const game = document.querySelector("iframe");
 const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/tweets' : 'https://twitter-clone-two.now.sh/tweets';
 
 loadingElement.style.display = '';
-
 listAllTweets();
+
+
+game.onload = function(){
+    console.log(game.contentDocument.querySelector(".score"));
+
+    game.contentDocument.querySelector(".score").addEventListener("died", (event) => {
+        event.preventDefault();
+        console.log('You dodged - ' + event.detail);
+    });
+};
+
+
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
