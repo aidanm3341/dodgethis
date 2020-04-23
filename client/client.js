@@ -95,7 +95,7 @@ function listAllScores(){
 
                 scoresElement.appendChild(div);
             }
-            for(let i=0; i < scores.length; i++){
+            for(let i=3; i < scores.length; i++){
                 const score = scores[i];
 
                 const div = document.createElement('div');
