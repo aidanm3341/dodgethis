@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twitter</title>
+    <title>Dodge</title>
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -12,9 +12,13 @@
         <h1 class="title">Get Dodgin' 👾</h1>
     </header>
 
-    <div class="game">
-        <iframe src="game/index.html" frameborder="1" width="512" height="512"></iframe>
+    <div class="gameAndScore">
+        <div class="game">
+            <iframe src="game/index.html" frameborder="1" width="512" height="512"></iframe>
+        </div>
+        <div class="tweets"></div>
     </div>
+
     
     <!-- <div class="game">
         <script src="pixelbox/build/index.js"></script>
@@ -23,18 +27,16 @@
     <main>
 
         <form class="my-form">
-            <label for="name">Name</label>
+            <label for="name">Enter a username</label>
             <input class="u-full-width" type="text" id="name" name="name">
-            <label for="content">Tweet</label>
-            <textarea class="u-full-width" type="text" id="content" name="content"></textarea>
-            <button class="button-primary">Tweet</button>
+            <!-- <label for="content">Tweet</label>
+            <textarea class="u-full-width" type="text" id="content" name="content"></textarea> -->
+            <button class="button-primary">Submit</button>
         </form>
         <div class="loading">
             <img src="loading.gif" alt="">
         </div>
-        <div class="tweets">
-            
-        </div>
+        
     </main>
     <script src="client.js"></script>
     

@@ -1,6 +1,10 @@
+const MENU_STATE = 0;
+const GAME_STATE = 1;
+const GAME_OVER = 2;
+var currentState = MENU_STATE;
+
 const TILE_SIZE = 8;
 const SWORD_WIDTH = 6;
-var hasDied = false;
 var swordsDodged = 0;
 var timeUntilSwordSpawn = 20;
 var startTime = new Date();
@@ -37,8 +41,7 @@ class Sword{
 
         if(this.y > 128){
             this.destroy();
-            if(!hasDied)
-                swordsDodged++;
+            swordsDodged++;
         }
 
         sprite(141, this.x, this.y, false, true)
@@ -90,39 +93,49 @@ function spawnSwords(){
 
 function checkForReset(){
     if(btn.A){
+        swords = [];
         swordsDodged = 0;
-        hasDied = false;
         timeUntilSwordSpawn = 20;
+        currentState = GAME_STATE;
     }
 }
 
 // Update is called once per frame
 exports.update = function () {
     cls();
+    switch(currentState){
+        case MENU_STATE:
+            print("press space to start", 20, 100)
+            checkForReset();
+            break;
+        case GAME_STATE:
+            playerControls();
+            spawnSwords();
+        
+            var map = getMap('map');
+            map.draw(0, 0);
+            player.update();
+            swords.forEach(sword => {
+                sword.update();
+        
+                if(collides(player.x, player.y, sword.x, sword.y)){
+                    sword.destroy();
+        
+                    const e = new CustomEvent("died", {detail: swordsDodged});
+                    document.querySelector(".score").dispatchEvent(e);
 
-    if(!hasDied){
-        playerControls();
-        spawnSwords();
-    }else{
-        print("Game Over!", 43, 35)
-        print("you dodged " + swordsDodged + " swords!", 25, 60)
-        print("press space to restart", 20, 80)
+                    currentState = GAME_OVER;
+                }
+            });
+            break;
+        case GAME_OVER:
+            print("Game Over!", 43, 35)
+            print("you dodged " + swordsDodged + " swords!", 25, 60)
+            print("press space to restart", 20, 80)
+    
+            checkForReset();
+            break;
 
-       checkForReset();
     }
-
-    var map = getMap('map');
-    map.draw(0, 0);
-    player.update();
-    swords.forEach(sword => {
-        sword.update();
-
-        if(collides(player.x, player.y, sword.x, sword.y)){
-            sword.destroy();
-            hasDied = true;
-            
-            const e = new CustomEvent("died", {detail: swordsDodged});
-            document.querySelector(".score").dispatchEvent(e);
-        }
-    });
+    
 };

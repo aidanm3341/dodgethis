@@ -20,12 +20,17 @@ body{
 }
 
 .tweets{
-    width: 80%;
+    text-align: left;
+    float: right;
+    width: 30em;
+    height: 512px;
     margin: 0 auto;
+    margin-left: 2em;
+    overflow: scroll;
 }
 
 .tweets > div {
-    background: hsl(0, 0%, 75%);
+    background: hsl(0, 0%, 15%);
     padding: 12px;
     border-radius: 4px;
 }
@@ -44,6 +49,8 @@ body{
 
 .game {
     text-align: center;
+    float: left;
+    width: 40%;
 }
 
 .game > body {
@@ -63,8 +70,7 @@ canvas {
 	-ms-interpolation-mode: nearest-neighbor;
 }
 
-.gameTest{
-    background-color: aqua;
-    size: 5em;
-    color: #000;
+.gameAndScore{
+    margin: auto;
+    display: table;
 }
