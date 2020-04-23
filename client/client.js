@@ -1,15 +1,18 @@
 const form = document.querySelector('form');
 const loadingElement = document.querySelector('.loading'); 
-const tweetsElement = document.querySelector('.tweets');
+const scoresElement = document.querySelector('.scores');
 const game = document.querySelector("iframe");
 const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/tweets' : 'https://twitter-clone-two.now.sh/tweets';
+
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const trophyImageNames = ["first.png", "second.png", "third.png"];
 
 var username = "BlankUserName";
 
 loadingElement.style.display = '';
 game.style.display = 'none';
-tweetsElement.style.display = 'none';
-listAllTweets();
+scoresElement.style.display = 'none';
+listAllScores();
 
 
 form.addEventListener('submit', (event) => {
@@ -19,90 +22,112 @@ form.addEventListener('submit', (event) => {
 
     form.style.display = 'none';
     game.style.display = '';
-    tweetsElement.style.display = '';
+    scoresElement.style.display = '';
 }); 
 
 game.onload = function(){
-    console.log(game.contentDocument.querySelector(".score"));
-
     game.contentDocument.querySelector(".score").addEventListener("died", (event) => {
         event.preventDefault();
         
         const name = username;
         const content = event.detail;
 
-        const tweet = {
+        const highscore = {
             name, 
             content
         }
 
         fetch(API_URL, {
             method: 'POST',
-            body: JSON.stringify(tweet),
+            body: JSON.stringify(highscore),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(response => response.json())
-          .then(createdTweet => {
+          .then(createdScore => {
             form.reset();
-            listAllTweets();
+            listAllScores();
         });
     });
 };
 
-// form.addEventListener('submit', (event) => {
-//     event.preventDefault();
-//     const formData = new FormData(form);
-//     const name = formData.get('name');
-//     const content = formData.get('content');
 
-//     const tweet = {
-//         name, 
-//         content
-//     }
+function formatDate(date){
+    var x;
+    if(date.getHours() < 13)
+        x = "am"
+    else
+        x = "pm"
 
-//     form.style.display = 'none';
-//     loadingElement.style.display = '';
+    var hours = date.getHours();
+    if(hours < 10)
+        hours = "0" + hours;
+    
+    var minutes = date.getMinutes();
+    if(minutes < 10)
+        minutes = "0" + minutes;
 
-//     fetch(API_URL, {
-//         method: 'POST',
-//         body: JSON.stringify(tweet),
-//         headers: {
-//             'content-type': 'application/json'
-//         }
-//     }).then(response => response.json())
-//       .then(createdTweet => {
-//         form.reset();
-//         loadingElement.style.display = 'none';
-//         form.style.display = '';
-//         listAllTweets();
-//       });
-// }); 
+    return date.getDate() + " " + months[date.getMonth()] + "  -  " + hours + ":" + minutes + x;
+}
 
-function listAllTweets(){
-    tweetsElement.innerHTML = '';
+function listAllScores(){
+    scoresElement.innerHTML = '';
     fetch(API_URL)
         .then(response => response.json())
-        .then(tweets => {
-            tweets.reverse();
-            tweets.forEach(tweet => {
+        .then(scores => {
+            scores.sort((a, b) => {
+                return b.content - a.content;
+            });
+            for (let i = 0; i < 3; i++) {
+                const score = scores[i];
+
                 const div = document.createElement('div');
 
-                const header = document.createElement('h3');
-                header.textContent = tweet.name;
+                const header = document.createElement('h5');
+                header.textContent = score.name + ' - ' + score.content;
 
-                const contents = document.createElement('p');
-                contents.textContent = tweet.content;
+                const image = document.createElement('img');
+                image.src = trophyImageNames[i];
+
+                div.appendChild(image);
+                div.appendChild(header);
+            
+
+                scoresElement.appendChild(div);
+            }
+            for(let i=0; i < scores.length; i++){
+                const score = scores[i];
+
+                const div = document.createElement('div');
+
+                const header = document.createElement('h5');
+                header.textContent = score.name + ' - ' + score.content;
 
                 const date = document.createElement('small');
-                date.textContent = new Date(tweet.created);
+                date.textContent = formatDate(new Date(score.created));
 
                 div.appendChild(header);
-                div.appendChild(contents);
-                div.appendChild(date);
 
-                tweetsElement.appendChild(div);
-            });
+                scoresElement.appendChild(div);
+            }
+            // scores.forEach(score => {
+            //     const div = document.createElement('div');
+
+            //     const header = document.createElement('h5');
+            //     header.textContent = score.name + ' - ' + score.content;
+
+            //     // const contents = document.createElement('h5');
+            //     // contents.textContent = score.content;
+
+            //     const date = document.createElement('small');
+            //     date.textContent = formatDate(new Date(score.created));
+
+            //     div.appendChild(header);
+            //     //div.appendChild(contents);
+            //     //div.appendChild(date);
+
+            //     scoresElement.appendChild(div);
+            // });
         });
 
         loadingElement.style.display = 'none';

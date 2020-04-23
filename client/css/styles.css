@@ -19,7 +19,7 @@ body{
     text-align: center;
 }
 
-.tweets{
+.scores{
     text-align: left;
     float: right;
     width: 30em;
@@ -29,21 +29,34 @@ body{
     overflow: scroll;
 }
 
-.tweets > div {
+.scores > div {
     background: hsl(0, 0%, 15%);
     padding: 12px;
     border-radius: 4px;
+    height: 2.4em;
 }
   
-.tweets > div > h3 {
+.scores > div > h5 {
     word-wrap: break-word;
+    position: relative;
+    width: 60%;
+    float: left;
 }
 
-.tweets > div > p {
+.scores > div > p {
     word-wrap: break-word; 
 }
 
-.tweets > div:not(:last-child) {
+.scores > div > img {
+    float: left;
+    padding-right: 1em;
+}
+
+/* .scores > div > small {
+    float: right;
+} */
+
+.scores > div:not(:last-child) {
     margin-bottom: 8px;
 }
 
