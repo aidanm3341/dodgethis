@@ -45,7 +45,7 @@ class Sword{
         }
 
         sprite(141, this.x, this.y, false, true)
-        //rect(this.x, this.y, SWORD_WIDTH, TILE_SIZE)
+        //rect(this.x+1, this.y, SWORD_WIDTH-1, TILE_SIZE)
     }
 
     destroy(){
@@ -53,9 +53,17 @@ class Sword{
     }
 }
 
+// function collides(x1, y1, x2, y2){
+//     return  x1 < x2 + SWORD_WIDTH &&
+//             x1 + TILE_SIZE > x2 &&
+//             y1 < y2 + TILE_SIZE &&
+//             y1 + TILE_SIZE > y2
+// }
+
+// thinner hitboxes
 function collides(x1, y1, x2, y2){
-    return  x1 < x2 + SWORD_WIDTH &&
-            x1 + TILE_SIZE > x2 &&
+    return  x1 < x2+1 + SWORD_WIDTH-1 &&
+            x1 + TILE_SIZE > x2+1 &&
             y1 < y2 + TILE_SIZE &&
             y1 + TILE_SIZE > y2
 }

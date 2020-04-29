@@ -39,10 +39,10 @@ function  isValidTweet(tweet){
            tweet.content && tweet.content.toString().trim() != '';
 }
 
-app.use(rateLimit({
-    windowMs: 5 * 1000,
-    max: 1
-})); 
+// app.use(rateLimit({
+//     windowMs: 5 * 1000,
+//     max: 1
+// })); 
 
 app.post('/tweets', (request, response) => {
     if(isValidTweet(request.body)){
